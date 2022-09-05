@@ -9,6 +9,11 @@ from dgl.nn.pytorch import GraphConv
 from models.model import GraphConvNet
 from utils.util import get_feature_and_label, laplacian_mat, get_graph, metrics, train_setting
 
+if torch.cuda.is_available():
+    device = torch.device('cuda')
+else:
+    device = torch.device('cpu')
+
 seed_num = 777
 EPOCH = 5000
 random.seed(seed_num)
@@ -16,13 +21,9 @@ np.random.seed(seed_num)
 torch.manual_seed(seed_num)
 dgl.seed(seed_num)
 
-model = GraphConvNet().cuda()
+model = GraphConvNet().to(device)
 
-train_path = glob("./training/*.npz")
-test_path = glob("./testing/*.npz")
-
-x_train, y_train = get_feature_and_label(train_path)
-x_test, y_test = get_feature_and_label(test_path)
+x_train, x_test, y_train, y_test = get_feature_and_label()
 
 x_train_lap = laplacian_mat(x_train)
 x_test_lap = laplacian_mat(x_test)
@@ -33,7 +34,7 @@ test_graph = get_graph(x_test_lap, x_test, y_test)
 print(train_graph)
 print(test_graph)
 
-acc_metrics, pre_metrics, rec_metrics, f1_metrics, confusion = metrics(3)
+acc_metrics, pre_metrics, rec_metrics, f1_metrics, confusion = metrics(2)
 criterion, optimizer = train_setting(target_model=model)
 
 for epoch in range(EPOCH):
