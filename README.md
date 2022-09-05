@@ -10,5 +10,4 @@
 - torchmetrics
 
 ## How to execute 
-1. put data into training and testing folder (```npz file``` recommend)
-2. run main.py
+1. run main.py
