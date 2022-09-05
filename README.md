@@ -1,4 +1,4 @@
-# Arrythmia-Classifier-using-GNN
+# GNN test
 
 ## Prerequisite
 
@@ -8,6 +8,7 @@
 - networkx
 - numpy
 - torchmetrics
+- sklearn
 
 ## How to execute 
 1. run main.py
