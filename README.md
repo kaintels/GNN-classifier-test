@@ -13,3 +13,4 @@
 
 ## How to execute 
 1. run main.py
+2. run main_pyg.py (for pyg version)
